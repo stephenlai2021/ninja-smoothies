@@ -24,7 +24,6 @@
         <template v-slot:append>
           <q-avatar>
             <q-icon name="add_box" size="sm" @click="addIng" />
-            <!-- <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" /> -->
           </q-avatar>
         </template>
       </q-input>

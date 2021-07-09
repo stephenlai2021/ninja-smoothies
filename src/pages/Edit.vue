@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md" style="max-width: 600px">
-    <div class="text-h4 q-mb-lg">Add New Smoothie Recipe</div>
+    <div class="text-h4 q-mb-lg">Edit Smoothie Recipe</div>
     <q-form @submit.prevent="updateSmoothie" class="q-gutter-md">
       <q-input
         filled
@@ -16,7 +16,13 @@
         @keydown.tab.prevent="addIng"
         v-model="another"
         lazy-rules
-      />
+      >
+        <template v-slot:append>
+          <q-avatar>
+            <q-icon name="add_box" size="sm" @click="addIng" />
+          </q-avatar>
+        </template>
+      </q-input>
 
       <q-btn
         color="grey"
