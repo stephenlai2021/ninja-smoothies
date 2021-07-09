@@ -116,6 +116,7 @@ export default {
         .collection("ninja-smoothies")
         .doc(route.params.id)
         .update({     
+          title: title.value,
           ingredients: ingredients.value,
         })
         .then(() => {
