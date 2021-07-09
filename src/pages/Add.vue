@@ -20,12 +20,27 @@
         @keydown.tab.prevent="addIng"
         v-model="another"
         lazy-rules
-      />
+      >
+        <template v-slot:append>
+          <q-avatar>
+            <q-icon name="add_box" size="sm" @click="addIng" />
+            <!-- <img src="https://cdn.quasar.dev/logo-v2/svg/logo.svg" /> -->
+          </q-avatar>
+        </template>
+      </q-input>
 
-      <q-btn color="grey" rounded class="q-ml-md" v-for="(ing, index) in ingredients" :key="index">
+      <q-btn
+        color="grey"
+        rounded
+        class="q-ml-md"
+        v-for="(ing, index) in ingredients"
+        :key="index"
+      >
         {{ ing }}
         <!-- <q-badge color="red" rounded floating @click="deleteIng(ing)">x</q-badge> -->
-        <q-badge color="red" rounded floating @click="deleteIng(index)">x</q-badge>
+        <q-badge color="red" rounded floating @click="deleteIng(index)"
+          >x</q-badge
+        >
       </q-btn>
 
       <div class="q-gutter-sm">
@@ -64,15 +79,15 @@ export default {
       }
     };
 
-    // use filter 
+    // use filter
     // const deleteIng = (ing) => {
     //   ingredients.value = ingredients.value.filter(ingredient => ingredient != ing)
     // }
 
     // use index
     const deleteIng = (index) => {
-      ingredients.value.splice(index, 1)
-    }
+      ingredients.value.splice(index, 1);
+    };
 
     const resetSmoothie = () => {
       ingredients.value = null;
@@ -107,7 +122,7 @@ export default {
       addIng,
       resetSmoothie,
       addSmoothie,
-      deleteIng
+      deleteIng,
     };
   },
 };
