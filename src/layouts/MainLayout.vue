@@ -3,9 +3,9 @@
     <q-layout view="lHh Lpr lff">
       <q-header elevated class="bg-cyan-8">
         <q-toolbar>
-          <q-btn v-if="route.fullPath" label="Back" flat dense class="q-mt-xs" to="/" />
+          <!-- <q-btn v-if="route.fullPath" label="Back" flat dense class="q-mt-xs" to="/" /> -->
           <q-toolbar-title class="absolute-center">Ninja Smoothies</q-toolbar-title>
-          <q-btn class="fixed-top-right q-ma-sm" position flat @click="drawer = !drawer" round dense icon="menu" />
+          <q-btn class="q-ma-sm" position flat @click="drawer = !drawer" round dense icon="menu" />
         </q-toolbar>
       </q-header>
 

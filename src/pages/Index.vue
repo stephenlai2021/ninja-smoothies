@@ -5,7 +5,7 @@
         flat
         bordered
         class="my-card bg-grey-1 q-mx-md q-mb-md"
-        v-for="(item) in smoothies"
+        v-for="item in smoothies"
         :key="item.id"
       >
         <q-card-section>
@@ -14,8 +14,30 @@
               <div class="text-h6">{{ item.title }}</div>
             </div>
 
-            <q-icon name="edit" @click="editItem(item.id)" class="text-grey" size="xs" />
-            <q-icon name="delete" @click="deleteItem(item.id)" class="text-grey" size="xs" />
+            <q-fab
+              color="teal-8"
+              text-color="black"
+              icon="keyboard_arrow_down"
+              direction="down"
+              padding="xs"
+              flat
+            >
+              <q-fab-action
+                color="teal-5"
+                text-color="white"
+                @click="editItem(item.id)"
+                icon="edit"
+                size="sm"
+                padding="xs"
+              />
+              <q-fab-action
+                color="teal-5"
+                text-color="white"
+                @click="deleteItem(item.id)"
+                icon="delete"
+                padding="xs"
+              />
+            </q-fab>
           </div>
         </q-card-section>
 
@@ -31,50 +53,58 @@
 
 <script>
 import { ref, onMounted } from "vue";
-import { fireDB } from 'src/boot/firebase'
-import { useQuasar } from 'quasar'
-import { useRouter } from 'vue-router'
+import { fireDB } from "src/boot/firebase";
+import { useQuasar } from "quasar";
+import { useRouter } from "vue-router";
 
 export default {
   setup() {
     const smoothies = ref([]);
 
-    const $q = useQuasar()
+    const $q = useQuasar();
 
-    const router = useRouter()
+    const router = useRouter();
 
     onMounted(() => {
-      fireDB.collection('ninja-smoothies').orderBy('id', 'desc').onSnapshot(snapshot => {
-        smoothies.value = snapshot.docs.map(doc => {
-          return { ...doc.data(), id: doc.id }
-          // return { ...doc.data() }
-        })
-      })
-    })
+      fireDB
+        .collection("ninja-smoothies")
+        .orderBy("id", "desc")
+        .onSnapshot((snapshot) => {
+          smoothies.value = snapshot.docs.map((doc) => {
+            return { ...doc.data(), id: doc.id };
+          });
+        });
+    });
 
-    const editItem = id => {
-      router.push(`/edit/${id}`)
-    }
+    const editItem = (id) => {
+      router.push(`/edit/${id}`);
+    };
 
     const deleteItem = (id) => {
       $q.dialog({
-        title: 'Warning',
-        message: 'Are you sure to delete this smoothie permanently ?',
+        title: "Warning",
+        message: "Are you sure to delete this smoothie permanently ?",
         cancel: true,
-        persistent: true
-      }).onOk(() => {
-        fireDB.collection('ninja-smoothies').doc(id).delete().then(() => {
-        console.log('item deleted successfully !')        
+        persistent: true,
       })
-      }).onCancel(() => {
-        return
-      })
-    }
+        .onOk(() => {
+          fireDB
+            .collection("ninja-smoothies")
+            .doc(id)
+            .delete()
+            .then(() => {
+              console.log("item deleted successfully !");
+            });
+        })
+        .onCancel(() => {
+          return;
+        });
+    };
 
     return {
       smoothies,
       deleteItem,
-      editItem
+      editItem,
     };
   },
 };
